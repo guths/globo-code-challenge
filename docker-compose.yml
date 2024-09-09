@@ -1,0 +1,18 @@
+services:
+  test: &defaults
+    build:
+      context: .
+      target: base
+    working_dir: /app
+    command: go test -p=1 ./...
+  app:
+    <<: *defaults
+    command: sh
+    volumes:
+      - .:/app
+  ci:
+    <<: *defaults
+    build: 
+      context: .
+      target: ci
+    volumes: []
