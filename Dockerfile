@@ -8,10 +8,8 @@ RUN go mod tidy
 
 FROM ci AS build
 WORKDIR /app/
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o entrypoint
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o morse .
 
-FROM scratch
+FROM alpine
 WORKDIR /
-COPY --from=build /app/entrypoint .
-
-ENTRYPOINT [ "/bin/bash" ]
+COPY --from=build /app/morse .

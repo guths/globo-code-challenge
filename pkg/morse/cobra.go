@@ -9,8 +9,8 @@ import (
 
 func MorseCommand(root *cobra.Command) *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "morse",
-		Short: "Command to start the api",
+		Use:   "decode",
+		Short: "Command to deecode morse code",
 		Run: func(cmd *cobra.Command, args []string) {
 			filePath, _ := cmd.Flags().GetString("file")
 			outputFile, _ := cmd.Flags().GetString("output")

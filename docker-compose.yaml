@@ -14,7 +14,14 @@ services:
       - .:/app
   ci:
     <<: *defaults
-    build: 
+    build:
       context: .
       target: ci
+    volumes: []
+  morse:
+    <<: *defaults
+    working_dir: /
+    command: []
+    build:
+      context: .
     volumes: []
