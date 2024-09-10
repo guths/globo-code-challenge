@@ -4,7 +4,9 @@ services:
       context: .
       target: base
     working_dir: /app
-    command: go test -p=1 ./...
+    command: go test ./...
+    volumes:
+      - .:/app
   app:
     <<: *defaults
     command: sh

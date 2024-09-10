@@ -59,17 +59,19 @@ func TestHandleFileWithValidPathFileAndOutputfile(t *testing.T) {
 
 	f.WriteString(".... . .-.. .-.. ---   .-- --- .-. .-.. -..")
 
-	outputfile, _ := os.Create("outputfile.txt")
+	outputfile, _ := os.Create("outputfile1.txt")
+
+	defer os.Remove("outputfile1.txt")
 
 	err := morse.HandleFile("test.txt", outputfile)
 
 	if err != nil {
-		t.Fail()
+		t.Error(err)
 	}
 
 	var content string
 
-	openFile, _ := os.Open("outputfile.txt")
+	openFile, _ := os.Open("outputfile1.txt")
 
 	scanner := bufio.NewScanner(openFile)
 
@@ -78,7 +80,7 @@ func TestHandleFileWithValidPathFileAndOutputfile(t *testing.T) {
 	}
 
 	if content != "HELLO WORLD " {
-		t.Fail()
+		t.Error(content)
 	}
 }
 
@@ -110,6 +112,7 @@ func TestHandleStdinWithOutputFile(t *testing.T) {
 
 	openFile, _ := os.Open("outputfile.txt")
 
+	defer os.Remove("outputfile.txt")
 	scanner := bufio.NewScanner(openFile)
 
 	for scanner.Scan() {
